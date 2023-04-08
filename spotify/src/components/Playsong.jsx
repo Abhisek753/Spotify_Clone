@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import RightSidebar from "./Playlist";
 import RightContainer from "./RightContainer";
+import Play from "./Play";
 
 function App() {
   const [selectedSong, setSelectedSong] = useState(null);
@@ -40,6 +41,7 @@ function App() {
           togglePlay={togglePlay}
         />
       )}
+      <Play/>
     </div>
   );
 }
