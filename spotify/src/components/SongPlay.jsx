@@ -10,13 +10,13 @@ flex-direction: column;
   align-items: center;
   width:100%;
   height:100%;
-  border :2px solid orange;
+
 `;
 
 const TitleArtistWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border :2px solid red;
+
    height:15%;
    width:60%;
   margin-top:7%;
@@ -24,7 +24,7 @@ const TitleArtistWrapper = styled.div`
 
 const SongTitle = styled.h3`
   font-size: 24px;
-  border :2px solid green;
+ 
   margin: 0;
 `;
 
@@ -36,7 +36,7 @@ const ArtistName = styled.p`
 const ImageSong = styled.div`
 height:60%;
 width:60%;
-border :2px solid teal;
+
 
 `
 
