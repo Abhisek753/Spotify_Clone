@@ -1,49 +1,89 @@
-import { useEffect, useState } from "react";
-import RightSidebar from "./Playlist";
-import RightContainer from "./RightContainer";
-import Play from "./Play";
+import React, { useState, useRef } from 'react';
+import styled from 'styled-components';
 
-function App() {
-  const [selectedSong, setSelectedSong] = useState(null);
-  const [songs, setSongs] = useState([]);
+const PlayerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-  useEffect(() => {
-    // Fetch the list of songs from an API
-    fetch('/api/songs')
-      .then(response => response.json())
-      .then(data => setSongs(data));
-  }, []);
+const TitleArtistWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`;
 
-  const PlaySong = song => {
-    setSelectedSong(song);
+const SongTitle = styled.h3`
+  font-size: 24px;
+  margin: 0;
+`;
+
+const ArtistName = styled.p`
+  font-size: 18px;
+  margin: 0;
+  margin-top: 10px;
+`;
+
+const AlbumCover = styled.img`
+  margin-top: 30px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+`;
+
+const ControlsWrapper = styled.div`
+  display: flex;
+  margin-top: 30px;
+`;
+
+const ControlButton = styled.button`
+  background-color: #fff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+`;
+
+function Player( {title, photo, url, artist} ) {
+  const audioRef = useRef();
+  const [isPlaying, setIsPlaying] = useState(false);
+  console.log(title)
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
   };
 
-  const playNext = () => {
-    // Logic to play the next song in the playlist
+  const handlePrevious = () => {
+    // implement going to the previous song
   };
 
-  const playPrev = () => {
-    // Logic to play the previous song in the playlist
+  const handleNext = () => {
+    // implement going to the next song
   };
-
-  const togglePlay = () => {
-    // Logic to toggle between play and pause
-  };
+  
 
   return (
-    <div>
-      {/* <RightSidebar playSong={PlaySong} songs={songs} /> */}
-      {selectedSong && (
-        <RightContainer
-          selectedSong={selectedSong}
-          playNext={playNext}
-          playPrev={playPrev}
-          togglePlay={togglePlay}
-        />
-      )}
-      <Play/>
-    </div>
+    <PlayerWrapper>
+      <TitleArtistWrapper>
+        <SongTitle>{title}</SongTitle>
+        <ArtistName>{artist}</ArtistName>
+      </TitleArtistWrapper>
+      <AlbumCover src={photo} alt={title} />
+      <audio ref={audioRef} src={url} />
+      <ControlsWrapper>
+        <ControlButton onClick={handlePrevious}>Previous</ControlButton>
+        <ControlButton onClick={handlePlayPause}>
+          {isPlaying ? 'Pause' : 'Play'}
+        </ControlButton>
+        <ControlButton onClick={handleNext}>Next</ControlButton>
+      </ControlsWrapper>
+    </PlayerWrapper>
   );
 }
 
-export default App;
+export default Player;
