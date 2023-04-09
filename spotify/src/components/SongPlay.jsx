@@ -105,7 +105,7 @@ function SongPlay({song}) {
   };
 
   const handleNext = () => {
-    // implement going to the next song
+    
   };
 
   return (
