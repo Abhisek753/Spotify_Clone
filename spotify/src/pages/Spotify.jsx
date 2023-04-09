@@ -1,48 +1,62 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Side_Menu from '../components/Side_Menu'
-import Navbar from '../components/Navbar'
-import Body from '../components/RightContainer'
-import Footer from '../components/Footer'
 import RightSidebar from '../components/Playlist'
-import PlaySong from '../components/Playsong'
+import SongPlay from '../components/SongPlay'
 
 const Spotify = () => {
+  const [song,setSong] = useState()
+  const handleSave=(song)=>{
+    console.log({song})
+    setSong(song);
+  }
+
   return (
     <Container>
-        <div className="spotify_body">
+      <div className="spotify_body">
+       <div className="side_menu">
             <Side_Menu/>
-            <RightSidebar/>
-          <div className="body">
-            <Navbar/>
-             <div className="body_content">
-                <PlaySong/>
-             </div>
-          </div>
-        </div>
-        <div className="spotify_footer">
-            <Footer/>
-        </div>
+       </div>
+       <div className="rightsidebar">
+            <RightSidebar handleSave={handleSave} />
+       </div>
+       <div className="player">
+       <SongPlay song={song}/>
+       {/* <PlaySong/> */}
+       </div>
+    </div>
+       
     </Container>
   )
 }
 
 export default Spotify
 let Container=styled.div`
-max-width:100vw;
-max-height:100vh;
+border:3px solid red;
+height:100%;
 overflow:hidden;
 display:grid;
-grid-template-rows:85vh 15vh;
-// background-color:red;
-// background-color:brown;
 .spotify_body{
-    display:grid;
-    grid-template-columns:15vw 20vw 40vw;
-    height:100%;
-    // width:100%;
-    background:linear-gradient(transparent,rgba(0,0,0,1));
-    background-color:#1d1406;
+display:grid;
+grid-template-columns:18.38% 29.10% 52.51%;
+
+}
+.side_menu {
+  display:flex;
+  width:100%;
+  // flex-direction:column;
+  border 2px solid pink;
+background-color:#1d1406;
+
+
+
+ }
+.rightsidebar{
+  border 2px solid green
+
+}
+.player{
+  border 2px solid green
 }
 
 `

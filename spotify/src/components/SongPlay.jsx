@@ -1,21 +1,30 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { FaPlay, FaPause } from 'react-icons/fa';
 
 const PlayerWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+background-color:#1d1406;
+color:white;
+flex-direction: column;
   align-items: center;
+  width:100%;
+  height:100%;
+  border :2px solid orange;
 `;
 
 const TitleArtistWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
+  border :2px solid red;
+   height:15%;
+   width:60%;
+  margin-top:7%;
 `;
 
 const SongTitle = styled.h3`
   font-size: 24px;
+  border :2px solid green;
   margin: 0;
 `;
 
@@ -24,17 +33,27 @@ const ArtistName = styled.p`
   margin: 0;
   margin-top: 10px;
 `;
+const ImageSong = styled.div`
+height:60%;
+width:60%;
+border :2px solid teal;
+
+`
 
 const AlbumCover = styled.img`
-  margin-top: 30px;
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+//  border :2px solid blue;
+
 `;
 
 const ControlsWrapper = styled.div`
   display: flex;
   margin-top: 30px;
+  width:100%;
+  aline-items:center;
+  justify-content:center;
 `;
 
 const ControlButton = styled.button`
@@ -43,12 +62,33 @@ const ControlButton = styled.button`
   font-size: 16px;
   cursor: pointer;
   margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  svg {
+    vertical-align: middle;
+  }
+
+  .play-icon {
+    display: ${props => (props.isPlaying ? 'none' : 'inline')};
+  }
+
+  .pause-icon {
+    display: ${props => (props.isPlaying ? 'inline' : 'none')};
+  }
 `;
 
-function Player( {title, photo, url, artist} ) {
+function SongPlay({song}) {
+    // if(!song || !song?.artist) return <></>;
+  // { title, photo, url, artist, id }
+// let song=JSON.parse(localStorage.getItem("songdata"))
+
   const audioRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
-  console.log(title)
+
+
   const handlePlayPause = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -65,20 +105,22 @@ function Player( {title, photo, url, artist} ) {
   const handleNext = () => {
     // implement going to the next song
   };
-  
 
   return (
     <PlayerWrapper>
       <TitleArtistWrapper>
-        <SongTitle>{title}</SongTitle>
-        <ArtistName>{artist}</ArtistName>
+        <SongTitle>{song?.title}</SongTitle>
+        <ArtistName>{song?.artist}</ArtistName>
       </TitleArtistWrapper>
-      <AlbumCover src={photo} alt={title} />
-      <audio ref={audioRef} src={url} />
+     <ImageSong>
+         <AlbumCover src={song?.photo} alt={song?.title} />
+      <audio ref={audioRef} src={song?.url} />
+     </ImageSong>
       <ControlsWrapper>
         <ControlButton onClick={handlePrevious}>Previous</ControlButton>
-        <ControlButton onClick={handlePlayPause}>
-          {isPlaying ? 'Pause' : 'Play'}
+        <ControlButton onClick={handlePlayPause} isPlaying={isPlaying}>
+          <FaPlay className="play-icon" />
+          <FaPause className="pause-icon" />
         </ControlButton>
         <ControlButton onClick={handleNext}>Next</ControlButton>
       </ControlsWrapper>
@@ -86,4 +128,4 @@ function Player( {title, photo, url, artist} ) {
   );
 }
 
-export default Player;
+export default SongPlay;

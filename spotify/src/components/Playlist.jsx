@@ -1,61 +1,81 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Player from './Playsong';
+
+import { useStateProvider } from '../utils/StateProvader';
+import SongPlay from './SongPlay';
 const RightSidebarWrapper = styled.div`
-  background-color: #fff;
-  background-color:teal;
+
+  background-color:#1d1406;
   color:white;
   display:flex;
-  height:100%;
-  width:100%;
   flex-direction:column;
-`;
+  position: absolute;
+  height: 924px;
+  aline-items:center;
+  .search{
+    height: 48px;
+    width: 400px;
+  background-color:#1d1406;
+   margin:auto;
+   border-radius: 8px;
+    padding: 8px 16px 8px 16px;
+    justify: space-between;
+    
+
+  }
+  h1{
+    height: 36px;
+    border-radius: nullpx;
+}`;
+
 
 const SongList = styled.ul`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+display:flex;
+flex-direction:column;
+aline-items:center;
+
+  
 `;
 
 const SongItem = styled.li`
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  cursor: pointer;
+align-items: center;
+cursor: pointer;
+height: 88px;
+width: 440px;
+padding:10px;
+border-radius: 8px;
+justify-content:space-between;
 
-  img {
-    width: 20%;
-    margin-right: 10px;
-  }
+}
+img {
+height: 48px;
+width: 48px;
+left: 0px;
+top: 0px;
+border-radius: 56px;
+ }`;
+  const Frame=styled.div`
+display: flex;
+width:60%;
+align-items: center;
+.song_details{
+margin-left:15%;
+}
 
-  .song-details {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+p{
 
-    h3 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: bold;
-    }
+margin-top:-8px;
+}
+`
 
-    p {
-      margin: 0;
-      font-size: 14px;
-    }
-  }
-
-  .song-duration {
-    width: 15%;
-    font-size: 14px;
-    text-align: right;
-  }
-`;
-
-function RightSidebar({ Player }) {
+function RightSidebar({ Player,handleSave }) {
   const [songs, setSongs] = useState([]);
+  const [data, dispatch] = useStateProvider();
+  // let handelplayer=(song)=>{
+  //   console.log(song)
+  
+  // }
 
   const getData = (playlistId) => {
     const query = `
@@ -66,6 +86,7 @@ function RightSidebar({ Player }) {
           title
           url
           photo
+          duration
         }
       }
     `;
@@ -101,18 +122,24 @@ function RightSidebar({ Player }) {
   
   }, []);
 
+  
+
   return (
     <RightSidebarWrapper>
-      <h2>Songs hangama</h2>
+     
+      <h1>For You</h1>
+      <input type="search" className='search' placeholder='Search Song, Artist' />
       <SongList>
         {songs && songs.map(song => (
-          <SongItem key={song._id} onClick={() => <Player  url= {song.url} photo= "song.photo" artist="song.artist " title= "song.title"/>}>
+          <SongItem key={song._id}onClick={()=>handleSave(song)} >
+            <Frame >
             <img src={song.photo} alt={song.title} />
-            <div className="song-details">
+            <div className="song_details">
               <h3>{song.title}</h3>
               <p>{song.artist}</p>
             </div>
-            <div className="song-duration">{song.duration}</div>
+            </Frame>
+            <div className="song-duration">{(song.duration)/100}</div>
           </SongItem>
         ))}
       </SongList>
