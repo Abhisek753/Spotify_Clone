@@ -5,11 +5,22 @@ import RightSidebar from '../components/Playlist'
 import SongPlay from '../components/SongPlay'
 
 const Spotify = () => {
-  const [song,setSong] = useState()
-  const handleSave=(song)=>{
-    console.log({song})
-    setSong(song);
+  const [id,setId] = useState()
+  const [passing,setPassing]=useState()
+  
+  const handleSave=(id)=>{
+   setId(id);
   }
+  // console.log(id)
+ const handleData=(data)=>{
+    //  setData(data)
+    const passingsong=data.data.getSongs
+    setPassing(passingsong)
+
+    //  console.log(passingsong,"yahi hai without")
+
+ }
+//  console.log(passing,"yahi hai")
 
   return (
     <Container>
@@ -18,10 +29,10 @@ const Spotify = () => {
             <Side_Menu/>
        </div>
        <div className="rightsidebar">
-            <RightSidebar handleSave={handleSave} />
+            <RightSidebar handleSave={handleSave} onData={handleData}/>
        </div>
        <div className="player">
-       <SongPlay song={song}/>
+       <SongPlay id={id} passing={passing} />
        {/* <PlaySong/> */}
        </div>
     </div>
