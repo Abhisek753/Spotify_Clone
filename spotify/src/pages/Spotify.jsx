@@ -32,8 +32,7 @@ const Spotify = () => {
 
 export default Spotify
 let Container=styled.div`
-border:3px solid red;
-height:100%;
+height:766px;
 overflow:hidden;
 display:grid;
 .spotify_body{
@@ -44,19 +43,11 @@ grid-template-columns:18.38% 29.10% 52.51%;
 .side_menu {
   display:flex;
   width:100%;
-  // flex-direction:column;
-  border 2px solid pink;
-background-color:#1d1406;
+ background-color:#1d1406;
+}
 
-
-
- }
 .rightsidebar{
-  border 2px solid green
-
+  width:100%;
+ background-color:#1d1406;
 }
-.player{
-  border 2px solid green
-}
-
 `

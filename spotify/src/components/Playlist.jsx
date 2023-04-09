@@ -11,6 +11,7 @@ const RightSidebarWrapper = styled.div`
   flex-direction:column;
   position: absolute;
   height: 924px;
+  border:1px solid teal;
   aline-items:center;
   .search{
     height: 48px;
@@ -131,7 +132,7 @@ function RightSidebar({ Player,handleSave }) {
       <input type="search" className='search' placeholder='Search Song, Artist' />
       <SongList>
         {songs && songs.map(song => (
-          <SongItem key={song._id}onClick={()=>handleSave(song)} >
+          <SongItem key={song._id} onClick={()=>handleSave(song)} >
             <Frame >
             <img src={song.photo} alt={song.title} />
             <div className="song_details">

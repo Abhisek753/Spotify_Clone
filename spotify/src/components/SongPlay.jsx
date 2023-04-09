@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaPlay, FaPause } from 'react-icons/fa';
 
@@ -87,7 +87,9 @@ function SongPlay({song}) {
 
   const audioRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
-
+  useEffect(()=>{
+    console.log("render")
+  },[song])
 
   const handlePlayPause = () => {
     if (isPlaying) {
