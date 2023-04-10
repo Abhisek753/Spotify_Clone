@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { useStateProvider } from '../utils/StateProvader';
 import SongPlay from './SongPlay';
+import SearchBar from './SearchBar';
 const RightSidebarWrapper = styled.div`
 
   background-color:#1d1406;
@@ -10,7 +11,7 @@ const RightSidebarWrapper = styled.div`
   display:flex;
   flex-direction:column;
   position: absolute;
-  height: 924px;
+  height: 724px;
   // border:1px solid teal;
   aline-items:center;
   .search{
@@ -72,6 +73,7 @@ margin-top:-8px;
 
 function RightSidebar({ handleSave,onData}) {
   const [songs, setSongs] = useState([]);
+  const [search, setSearch] = React.useState("");
  
  const getData = (playlistId) => {
     const query = `
@@ -87,7 +89,7 @@ function RightSidebar({ handleSave,onData}) {
       }
     `;
     
-    fetch("https://api.ss.dev/resource/api", {
+    fetch("https://api.ss.dev/resource/api?_limit=7&_page=1", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -131,6 +133,8 @@ function RightSidebar({ handleSave,onData}) {
      
       <h1>For You</h1>
       <input type="search" className='search' placeholder='Search Song, Artist' />
+      {/* <SearchBar/> */}
+      {/* //input data for append */}
       <SongList >
         {songs && songs.map(song => (
           <SongItem key={song._id} onClick={()=>handleSave(song._id)} >
